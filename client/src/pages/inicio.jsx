@@ -2,19 +2,21 @@ import Portada from '../assets/hero/portada.jpg';
 import Des1 from '../assets/destacados/des1.png';
 import Des2 from '../assets/destacados/des2.png';
 import Des3 from '../assets/destacados/des3.png';
+import Mejorm from '../components/Mejorm';
 
 
 
 function Inicio() {
+ 
+
   return (
-    
       <div>
-        <div className="relative">
+        <div className="relative font-sans">
           <img src={Portada} alt="Coche de hidrógeno" className="w-full h-screen object-cover" />
-          <div className="absolute top-1/3 left-1/3 transform -translate-x-1/2 -translate-y-1/2 border p-10 text-center text-white">
-            <p className="text-xl font-thin">Hidrógeno</p>
-            <h1 className="text-3xl font-bold">Espíritu pionero para la movilidad del futuro</h1>
-            <button className="mt-8 border hover:bg-[#FFDC7F]  hover:text-black hover:border-0 text-white font-bold py-4 px-12 text-3xl rounded">Más detalles</button>
+          <div className="absolute top-1/3 left-1/3 transform -translate-x-1/2 -translate-y-1/3 border p-10 text-center text-white">
+            <p className="text-xl font-normal font-sans text-[#F2F2F2]">Hidrógeno</p>
+            <h1 className="text-2xl font-semibold font-sans text-[#F2F2F2]">Espíritu pionero para la movilidad del futuro</h1>
+            <button className="mt-8 border hover:bg-[#FFDC7F]  hover:text-black hover:border-0 text-[#F2F2F2] fon-sans font-bold py-4 px-12 text-3xl rounded">Más detalles</button>
           </div>
         </div>
         <div className="container mx-auto p-32">
@@ -37,6 +39,7 @@ function Inicio() {
             <div className='pb-12'></div>
           </div>
         </div>
+        <Mejorm />
       </div>
   );
 }
