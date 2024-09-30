@@ -7,7 +7,6 @@ import Mejorm from '../components/Mejorm';
 
 
 function Inicio() {
- 
 
   return (
       <div>

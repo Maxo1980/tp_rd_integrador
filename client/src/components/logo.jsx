@@ -1,9 +1,9 @@
-import bmwLogo from '../assets/logo/logotipo.png';
+import bmwLogo from '../assets/logo/logo.png';
 import { Link } from 'react-router-dom'; 
 
 function Logo() {
   return (
-    <Link to=''><img src={bmwLogo} alt="Logo de BMW" className="w-32" /></Link>
+    <Link to=''><img src={bmwLogo} alt="Logo de BMW" className="w-36" /></Link>
   );
 }
 

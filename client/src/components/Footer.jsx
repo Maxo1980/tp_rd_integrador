@@ -16,9 +16,9 @@ function Footer() {
             <div>
               <h3 className="text-lg font-semibold font-sans pb-2">Enlaces rápidos</h3>
               <ul>
-                <li><Link to='../pages/institucional.jsx' className='font-light hover:text-[#16325B] hover:font-normal'>Institucional</Link></li>
-                <li><Link to='../pages/reclamos.jsx' className='font-light hover:text-[#16325B] hover:font-normal'>Reclamos</Link></li>
-                <li><Link to='../pages/contacto.jsx' className='font-light hover:text-[#16325B] hover:font-normal'>Contacto</Link></li>
+                <li><Link to='./institucional.jsx' className='font-light hover:text-[#16325B] hover:font-normal'>Institucional</Link></li>
+                <li><Link to='/reclamos.jsx' className='font-light hover:text-[#16325B] hover:font-normal'>Reclamos</Link></li>
+                <li><Link to='/contacto.jsx' className='font-light hover:text-[#16325B] hover:font-normal'>Contacto</Link></li>
               </ul>
             </div>
             <div>

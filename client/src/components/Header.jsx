@@ -3,7 +3,7 @@ import Navbar from './navbar';
 
 function Header() {
   return (
-    <header className="">
+    <header className="bg-[#FFDC7F]">
       <div className="container mx-auto px-4 py-1 flex justify-between items-center">
         <Logo />
         <Navbar />
