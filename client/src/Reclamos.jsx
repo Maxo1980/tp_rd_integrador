@@ -1,8 +1,7 @@
 function Reclamos() {
   return (
     <div>
-      <h1>Bienvenido a la sección Institucional</h1>
-      <p>Aquí encontrarás información sobre nuestra empresa.</p>
+      <h1>ponete las pilas presi</h1>
     </div>
   );
 }

@@ -15,7 +15,7 @@ import img14 from '../assets/institucional/14.png';
 import img15 from '../assets/institucional/15.png';
 import img16 from '../assets/institucional/16.png';
 import img17 from '../assets/institucional/17.png';
-import parrilla2 from '../assets/institucional/parrillas/2.png';
+
 
 
 function Parrillas() {
