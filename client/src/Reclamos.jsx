@@ -15,7 +15,7 @@ function Reclamos() {
               <input className="border border-[#333333] opacity-50 rounded-lg w-full py-2 px-3 text-[#333333]  focus:outline" type="text" required />
             </div>
             <div className="mx-4">
-              <button className="mt-16 border hover:bg-[#FFDC7F]  hover:text-black hover:border-0 text-[#333333] font-sans font-regular border-[#333333] py-3 w-full text-3xl rounded-lg ">Enviar</button>
+              <button className="mt-16 border hover:bg-[#FFDC7F]  hover:text-black hover:border-0 text-[#333333] font-sans font-regular border-[#78B7D0] py-3 w-full text-3xl rounded-lg ">Enviar</button>
             </div>
           </form>
         </div>
@@ -32,7 +32,7 @@ function Reclamos() {
               <input className="border border-[#333333] opacity-50 rounded-lg w-full py-2 px-3 text-[#333333]  focus:outline" type="text" required />
             </div>
             <div className="mx-4">
-              <button className="mt-16 border hover:bg-[#FFDC7F]  hover:text-black hover:border-0 text-[#333333] font-sans font-regular border-[#333333] py-3 w-full text-3xl rounded-lg ">Enviar</button>
+              <button className="mt-16 border hover:bg-[#FFDC7F]  hover:text-black hover:border-0 text-[#333333] font-sans font-regular border-[#227B94] py-3 w-full text-3xl rounded-lg">Enviar</button>
             </div>
           </form>
         </div>
@@ -49,7 +49,7 @@ function Reclamos() {
               <input className="border border-[#333333] opacity-50 rounded-lg w-full py-2 px-3 text-[#333333]  focus:outline" type="text" required />
             </div>
             <div className="mx-4">
-              <button className="mt-16 border hover:bg-[#FFDC7F]  hover:text-black hover:border-0 text-[#333333] font-sans font-regular border-[#333333] py-3 w-full text-3xl rounded-lg ">Enviar</button>
+              <button className="mt-16 border hover:bg-[#FFDC7F]  hover:text-black hover:border-0 text-[#333333] font-sans font-regular border-[#16325B] py-3 w-full text-3xl rounded-lg ">Enviar</button>
             </div>
           </form>
         </div> 
