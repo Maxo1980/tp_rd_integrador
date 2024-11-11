@@ -9,7 +9,7 @@ import v1Usuarios from "./v1/routes/usuariosRoutes.js";
 
 // Importo middlewares
 import validateContentType from "./middlewares/validateContentType.js";
-import { verifyToken, verifyRole } from "./middlewares/auth.js";
+import { verifyToken, verifyRole } from "./v1/auth.js";
 
 // Importo rutas
 import { router as v1ReclamosEstadoRouter } from "./v1/routes/reclamosEstadosRoutes.js";

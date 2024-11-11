@@ -1,6 +1,6 @@
 import express from "express";
 import UsuariosController from "../../controllers/usuariosController.js";
-import { verifyToken, verifyRole } from "../../middlewares/auth.js"; // Importar middleware
+import { verifyToken, verifyRole } from "../auth.js"; // Importar middleware
 
 const router = express.Router();
 const usuariosController = new UsuariosController();
