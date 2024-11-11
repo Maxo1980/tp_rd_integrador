@@ -1,5 +1,8 @@
 import jwt from "jsonwebtoken";
 import UsuariosService from "../services/usuariosService.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 class AuthController {
   constructor() {
@@ -23,9 +26,7 @@ class AuthController {
       const token = jwt.sign(
         { id: usuario.id, perfil: usuario.perfil },
         process.env.JWT_SECRET,
-        {
-          expiresIn: "1h",
-        }
+        { expiresIn: "1h" }
       );
 
       return res.status(200).json({ token });

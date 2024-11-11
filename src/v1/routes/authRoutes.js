@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 dotenv.config();
 const router = express.Router();
 
-// Login endpoint
+// Ruta de login
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -20,6 +20,7 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ message: "Contraseña incorrecta" });
     }
 
+    // Creo el token
     const token = jwt.sign(
       { userId: user.id, perfil: user.perfil },
       process.env.JWT_SECRET,
