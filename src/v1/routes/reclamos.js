@@ -6,10 +6,10 @@ import {
 
 const router = express.Router();
 
-// Actualizo los reclamos de clientes
+// Actualizo los reclamos
 router.put("/:id/estado", actualizarEstadoReclamo);
 
-// Cancelp los reclamos
+// aca se ancelp los reclamos
 router.put("/:id/cancelar", cancelarReclamo);
 
 export default router;

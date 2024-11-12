@@ -1,15 +1,14 @@
-import express from 'express';
+import express from "express";
 
-import ReclamosController from '../../controllers/reclamosController.js';
+import ReclamosController from "../../controllers/reclamosController.js";
 
 const router = express.Router();
 
 const reclamosController = new ReclamosController();
 
-router.get('/', reclamosController.buscarTodos);
-// router.get('/:idReclamo', reclamosController.buscarPorId);
-router.post('/', reclamosController.crear);
-// router.patch('/:idReclamo', reclamosController.modificar);
+// ruta para la paginacion para que de todos los reclamos
+router.get("/", reclamosController.buscarTodos);
 
-
-export {router};
+// aca crea el reclamo nuevo
+router.post("/", reclamosController.crear);
+export { router };
