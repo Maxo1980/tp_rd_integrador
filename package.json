@@ -30,5 +30,6 @@
     "nodemailer": "^6.9.16",
     "nodemon": "^3.1.4",
     "path": "^0.12.7"
-  }
+  },
+  "devDependencies": {}
 }
