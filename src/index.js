@@ -108,7 +108,9 @@ app.use("/v1/usuariosTipo", v1UsuariosTipo);
 app.use("/v1/oficinas", v1Oficinas);
 app.use("/v1/reclamosTipo", v1RelclamosTipo);
 app.use("/v1/usuariosOficinas", v1UsuariosOficinas);
-app.use("/v1/auth", v1AuthRouter);
+
+//REGISTRO DE USURIOS
+app.use("/v1/auth", v1AuthRouter); // esta es la ruta de REGISTRO DE USUARIOS
 // swagger-ui-express sirve la interfaz Swagger
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
