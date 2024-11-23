@@ -1,9 +1,8 @@
 import { conexion } from "./conexion.js";
 
-export default class Reclamos{
-
-    buscarTodos = async () => {
-        let sql = `
+export default class Reclamos {
+  buscarTodos = async () => {
+    let sql = `
             SELECT 
                 r.idReclamo, 
                 r.asunto, 
@@ -21,13 +20,46 @@ export default class Reclamos{
             INNER JOIN reclamosEstado AS re ON re.idReclamoEstado = r.idReclamoEstado
             INNER JOIN usuarios AS u ON u.idUsuario = r.idUsuarioCreador 
              `;
-    
-        const [result] = await conexion.query(sql);
-        return result;
-    };
 
-    buscarPorId = async (idReclamo) => {
-        const sql = `SELECT 
+    const [result] = await conexion.query(sql);
+    return result;
+  };
+  // **** es donde agregue el metodo para buscaconpaginacion
+
+  buscarConPaginacion = async (limit, offset) => {
+    const sql = `
+            SELECT 
+                r.idReclamo, 
+                r.asunto, 
+                r.descripcion, 
+                r.fechaCreado, 
+                r.fechaFinalizado, 
+                r.fechaCancelado, 
+                r.idReclamoEstado, 
+                re.descripcion AS "Descripción Estado", 
+                r.idReclamoTipo, 
+                rt.descripcion AS "Descripción Tipo", 
+                u.nombre AS "Creado por"
+            FROM reclamos AS r
+            INNER JOIN reclamosTipo AS rt ON rt.idReclamoTipo = r.idReclamoTipo
+            INNER JOIN reclamosEstado AS re ON re.idReclamoEstado = r.idReclamoEstado
+            INNER JOIN usuarios AS u ON u.idUsuario = r.idUsuarioCreador
+            LIMIT ? OFFSET ?;
+        `;
+    const [result] = await conexion.query(sql, [limit, offset]);
+    return result;
+  };
+
+  // *** aca agregue el otro medoto de contarregistros
+
+  contarRegistros = async () => {
+    const sql = `SELECT COUNT(*) AS total FROM reclamos;`;
+    const [result] = await conexion.query(sql); // contiene el resultado de consulta
+    return result[0].total;
+  };
+
+  buscarPorId = async (idReclamo) => {
+    const sql = `SELECT 
                         r.idReclamo,
                         r.asunto,
                         r.descripcion,
@@ -52,76 +84,78 @@ export default class Reclamos{
                     LEFT JOIN usuarios AS uc ON r.idUsuarioCreador = uc.idUsuario
                     LEFT JOIN usuarios AS uf ON r.idUsuarioFinalizador = uf.idUsuario
                     WHERE r.idReclamo = ?;`;
-        const [result] = await conexion.query(sql, [idReclamo]);
-        return (result.length > 0) ? result[0] : null;
-    }
-    
-    sePuedeCancelar = async (idReclamo) => {
-        
-        // idReclamoEstado 3 y 4 no se pueden cancelar 3 = Cancelado y 4 = Finalizado
-        const sql = `SELECT * FROM reclamos WHERE idReclamo = ? 
+    const [result] = await conexion.query(sql, [idReclamo]);
+    return result.length > 0 ? result[0] : null;
+  };
+
+  sePuedeCancelar = async (idReclamo) => {
+    // idReclamoEstado 3 y 4 no se pueden cancelar 3 = Cancelado y 4 = Finalizado
+    const sql = `SELECT * FROM reclamos WHERE idReclamo = ? 
         AND idReclamoEstado = 1 
         AND idReclamoEstado !=3
-        AND idReclamoEstado !=4 ` ;
-        const [result] = await conexion.query(sql, [idReclamo]);
-        return (result.length > 0) ? result[0] : null;
-    }
+        AND idReclamoEstado !=4 `;
+    const [result] = await conexion.query(sql, [idReclamo]);
+    return result.length > 0 ? result[0] : null;
+  };
 
-    
-    crear = async ({asunto, idReclamoTipo, idUsuarioCreador}) => {
-
-        const sql = `INSERT INTO reclamos (asunto, fechaCreado, idReclamoTipo, idReclamoEstado, idUsuarioCreador)
+  crear = async ({ asunto, idReclamoTipo, idUsuarioCreador }) => {
+    const sql = `INSERT INTO reclamos (asunto, fechaCreado, idReclamoTipo, idReclamoEstado, idUsuarioCreador)
                     VALUES (?, NOW(), ?, 1, ?)`;
-        const [result] = await conexion.query(sql, [asunto, idReclamoTipo, idUsuarioCreador]);
+    const [result] = await conexion.query(sql, [
+      asunto,
+      idReclamoTipo,
+      idUsuarioCreador,
+    ]);
 
-        if (result.affectedRows === 0) {
-            return false;
-        }
-        
-        return this.buscarPorId(result.insertId);
+    if (result.affectedRows === 0) {
+      return false;
     }
 
-    modificar = async (idReclamo, datos) => {
-        const sql = 'UPDATE reclamos SET ? WHERE idReclamo = ?';
-        const [result] = await conexion.query(sql, [datos, idReclamo]);
-        
-        if (result.affectedRows === 0) {
-            return false;
-        }
-        
-        return true;
+    return this.buscarPorId(result.insertId);
+  };
+
+  modificar = async (idReclamo, datos) => {
+    const sql = "UPDATE reclamos SET ? WHERE idReclamo = ?";
+    const [result] = await conexion.query(sql, [datos, idReclamo]);
+
+    if (result.affectedRows === 0) {
+      return false;
     }
 
-    buscarInformacionClientePorReclamo = async (idReclamo) => {
-        const sql = `SELECT CONCAT(u.apellido, ', ', u.nombre) AS cliente, u.correoElectronico, rt.descripcion AS estado 
+    return true;
+  };
+
+  buscarInformacionClientePorReclamo = async (idReclamo) => {
+    const sql = `SELECT CONCAT(u.apellido, ', ', u.nombre) AS cliente, u.correoElectronico, rt.descripcion AS estado 
                         FROM reclamos AS r 
                         INNER JOIN usuarios AS u ON u.idUsuario = r.idUsuarioCreador 
                         INNER JOIN reclamosEstado AS rt ON rt.idReclamoEstado = r.idReclamoEstado
                         WHERE r.idReclamo = ?;`;
-        const [result] = await conexion.query(sql, [idReclamo]);
+    const [result] = await conexion.query(sql, [idReclamo]);
 
-        return result;
-    }
+    return result;
+  };
 
-    buscarDatosReportePdf = async () => {        
-        const sql = 'CALL `datosPDF`()`(@p0, @p1, @p2, @p3, @p4);';
+  buscarDatosReportePdf = async () => {
+    const sql = "CALL `datosPDF`()`(@p0, @p1, @p2, @p3, @p4);";
 
-        const [result] = await conexion.query(sql);
+    const [result] = await conexion.query(sql);
 
-        console.log(result);
-        const datosReporte = {
-            reclamosTotales : result[0][0].reclamosTotales,
-            reclamosNoFinalizados : result[1][0].reclamosNoFinalizados,
-            reclamosFinalizados : result[2][0].reclamosFinalizados,
-            descripcionTipoRreclamoFrecuente : result[3][0].descripcionTipoRreclamoFrecuente,
-            cantidadTipoRreclamoFrecuente : result[3][0].cantidadTipoRreclamoFrecuente
-        }
+    console.log(result);
+    const datosReporte = {
+      reclamosTotales: result[0][0].reclamosTotales,
+      reclamosNoFinalizados: result[1][0].reclamosNoFinalizados,
+      reclamosFinalizados: result[2][0].reclamosFinalizados,
+      descripcionTipoRreclamoFrecuente:
+        result[3][0].descripcionTipoRreclamoFrecuente,
+      cantidadTipoRreclamoFrecuente: result[3][0].cantidadTipoRreclamoFrecuente,
+    };
 
-        return datosReporte;
-    }
+    return datosReporte;
+  };
 
-    buscarDatosReporteCsv = async () => {
-        const sql = `SELECT r.idReclamo as 'reclamo', rt.descripcion as 'tipo', re.descripcion AS 'estado',
+  buscarDatosReporteCsv = async () => {
+    const sql = `SELECT r.idReclamo as 'reclamo', rt.descripcion as 'tipo', re.descripcion AS 'estado',
                      DATE_FORMAT(r.fechaCreado, '%Y-%m-%d %H:%i:%s') AS 'fechaCreado', CONCAT(u.nombre, ' ', u.apellido) AS 'cliente'
                     FROM reclamos AS r 
                     INNER JOIN reclamosTipo AS rt ON rt.idReclamoTipo = r.idReclamoTipo 
@@ -129,7 +163,7 @@ export default class Reclamos{
                     INNER JOIN usuarios AS u ON u.idUsuario = r.idUsuarioCreador 
                         WHERE r.idReclamoEstado <> 4;`;
 
-        const [result] = await conexion.query(sql);
-        return result;
-    }
+    const [result] = await conexion.query(sql);
+    return result;
+  };
 }
